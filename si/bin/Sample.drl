@@ -343,7 +343,7 @@ no-loop
 	when
 		a1: Attribute( my_id == "pasta", parameters.contains("Tak")) &&
 		a2: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina")) &&
-		a3: Attribute( my_id == "accept") &&
+		a3: Attribute( my_id == "accept")// &&
 	//	a4: Attribute( my_id == "cuisine", parameters.contains("włoska"))
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Spaghetti bolognese. Czy akceptujesz ten wybór?"));

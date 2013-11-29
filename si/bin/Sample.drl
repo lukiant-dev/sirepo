@@ -31,7 +31,7 @@ salience 1
 	when 
 	then
 		System.out.println("Init");
-		insert( new Attribute("cuisine") );
+	//	insert( new Attribute("cuisine") );
 		insert( new Attribute("fastFood") ); 
 		insert( new Attribute("diet") );
 		insert( new Attribute("meat") );
@@ -72,7 +72,7 @@ rule "Fast Food?"
 		update(a1);
 end
 //5
-rule "Cuisine"
+/*rule "Cuisine"
 //no-loop
 	when 
 		a1: Attribute( my_id == "cuisine", parameters.isEmpty()) &&
@@ -81,7 +81,7 @@ rule "Cuisine"
 	then
 		a1.getParams(Question.fewOptions(new String [] {"włoska", "polska", "azjatycka"}, "Jakie rodzaje kuchni preferujesz?"));
 		update(a1);
-end
+end*/
 //6
 rule "Taste"
 //no-loop
@@ -262,8 +262,8 @@ no-loop
 	when
 		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
 		a2: Attribute( my_id == "vegetables", parameters.contains("kapusta")) &&
-		a3: Attribute( my_id == "mushroom", parameters.contains("Tak")) 
-		a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
+		a3: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
+		//a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
 		a5: Attribute( my_id == "accept")
 	then
 		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi z kapustą i grzybami. Czy akceptujesz ten wybór?"));
@@ -275,8 +275,8 @@ rule "Pierogi ze szpinakiem"
 no-loop
 	when
 		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
-		a3: Attribute( my_id == "isSpinach", parameters.contains("Tak")) 
-		a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
+		a3: Attribute( my_id == "isSpinach", parameters.contains("Tak")) &&
+	//	a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
 		a5: Attribute( my_id == "accept")
 	then
 		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi ze szpinakiem. Czy akceptujesz ten wybór?"));
@@ -288,8 +288,8 @@ rule "Placki ziemniaczane"
 no-loop
 	when
 		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
-		a3: Attribute( my_id == "vegetables", parameters.contains("ziemniaki")) 
-		a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
+		a3: Attribute( my_id == "vegetables", parameters.contains("ziemniaki")) &&
+	//	a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
 		a5: Attribute( my_id == "accept")
 	then
 		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Placki ziemniaczane. Czy akceptujesz ten wybór?"));
@@ -297,23 +297,23 @@ no-loop
 		drools.getRule().setLockOnActive(true);
 end
 /*** Dania kuchni azjatyckiej***/
-rule "Sushi"
+/*rule "Sushi"
 no-loop
 	when
 		//a1: Attribute( my_id == "diet", (parameters.contains("ryby") || parameters.contains("danie wegetariańskie"))) &&
-		a2: Attribute( my_id == "cuisine", parameters.contains("azjatycka")) &&
+	//	a2: Attribute( my_id == "cuisine", parameters.contains("azjatycka")) &&
 		a3: Attribute( my_id == "accept")
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Sushi. Czy akceptujesz ten wybór?"));
 		update(a3);
 		drools.getRule().setLockOnActive(true);
-end
+end*/
 
 /***Dania kuchni włoskiej ***/
 rule "Spaghetti Napoli"
 	when
 		a1: Attribute( my_id == "pasta", parameters.contains("Tak")) &&
-		a2: Attribute( my_id == "cuisine", parameters.contains("włoska")) &&
+		//a2: Attribute( my_id == "cuisine", parameters.contains("włoska")) &&
 		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska")) &&
 		a4: Attribute( my_id == "accept")
 	then
@@ -327,7 +327,7 @@ end
 rule "Kotlet schabowy z ziemniakami"
 	when
 		a1: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina")) &&
-		a2: Attribute( my_id == "cuisine", parameters.contains("polska")) &&
+		//a2: Attribute( my_id == "cuisine", parameters.contains("polska")) &&
 		a3: Attribute( my_id == "accept")
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Kotlet schabowy z ziemniakami. Czy akceptujesz ten wybór?"));
@@ -344,7 +344,7 @@ no-loop
 		a1: Attribute( my_id == "pasta", parameters.contains("Tak")) &&
 		a2: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina")) &&
 		a3: Attribute( my_id == "accept") &&
-		a4: Attribute( my_id == "cuisine", parameters.contains("włoska"))
+	//	a4: Attribute( my_id == "cuisine", parameters.contains("włoska"))
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Spaghetti bolognese. Czy akceptujesz ten wybór?"));
 		update(a3);

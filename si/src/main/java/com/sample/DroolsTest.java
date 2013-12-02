@@ -88,7 +88,7 @@ public class DroolsTest {
 				i++;
 			}
 			/* sprawdzenie czy chociaż jeden checkboxow został wybrany */
-			while (true) {
+			//while (true) {
 
 				JOptionPane.showMessageDialog(null, qPanel, title,
 						JOptionPane.PLAIN_MESSAGE);
@@ -96,15 +96,15 @@ public class DroolsTest {
 				for (JCheckBox chBox : chBoxes)
 					if (chBox.isSelected())
 						results.add(chBox.getText());
-
+/*
 				if (results.size() > 0)
-					break;
+					break;*/
 
 				JOptionPane.showMessageDialog(null,
 						"Zaznacz chociaz jedną z podanych odpowiedzi", title,
 						JOptionPane.ERROR_MESSAGE);
 
-			}
+			//}
 
 			return results;
 		}

@@ -100,11 +100,11 @@ public class DroolsTest {
 				if (results.size() > 0)
 					break;*/
 
-				JOptionPane.showMessageDialog(null,
+			/*	JOptionPane.showMessageDialog(null,
 						"Zaznacz chociaz jedną z podanych odpowiedzi", title,
 						JOptionPane.ERROR_MESSAGE);
 
-			//}
+*/			//}
 
 			return results;
 		}

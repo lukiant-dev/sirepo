@@ -1,0 +1,225 @@
+<object-stream>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Init [0]</activationId>
+  <rule>Init</rule>
+  <declarations></declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Init [0]</activationId>
+  <rule>Init</rule>
+  <declarations></declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>1</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@437f0103</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Choose diet [2]</activationId>
+  <rule>Choose diet</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>2</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@397d693b</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>3</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@5887bdf9</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>4</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@37c953d7</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>5</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@29f64de</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>6</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@2e972c2a</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>No result [7]</activationId>
+  <rule>No result</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@46d4914b(7)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>7</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@46d4914b</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>8</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@2d8ef741</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>9</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@50ae3c5</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>10</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@4ce5d531</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>11</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@50fab68</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>12</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@47be3b70</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>13</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@1a305adc</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>14</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@5c9d2ef2</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>15</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@5375415e</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>16</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@3716ad20</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>17</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@31c02c21</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>18</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@3f91440b</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>1</type>
+  <factId>19</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@5a0a4ec7</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Init [0]</activationId>
+  <rule>Init</rule>
+  <declarations></declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Choose diet [2]</activationId>
+  <rule>Choose diet</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Fast Food? [2, 1]</activationId>
+  <rule>Fast Food?</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@437f0103(1); a2=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>Preferred meat [8, 2]</activationId>
+  <rule>Preferred meat</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@397d693b(2); a2=com.sample.DroolsTest$Attribute@2d8ef741(8)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>2</type>
+  <factId>2</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@397d693b</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Choose diet [2]</activationId>
+  <rule>Choose diet</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Preferred meat [8, 2]</activationId>
+  <rule>Preferred meat</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@397d693b(2); a2=com.sample.DroolsTest$Attribute@2d8ef741(8)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>2</type>
+  <factId>8</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@2d8ef741</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Preferred meat [8, 2]</activationId>
+  <rule>Preferred meat</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@397d693b(2); a2=com.sample.DroolsTest$Attribute@2d8ef741(8)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>Fast Food? [2, 1]</activationId>
+  <rule>Fast Food?</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@437f0103(1); a2=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>4</type>
+  <activationId>notLike [2, 1, 17]</activationId>
+  <rule>notLike</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@31c02c21(17); a2=com.sample.DroolsTest$Attribute@397d693b(2); a3=com.sample.DroolsTest$Attribute@437f0103(1)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>2</type>
+  <factId>1</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@437f0103</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>Fast Food? [2, 1]</activationId>
+  <rule>Fast Food?</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@437f0103(1); a2=com.sample.DroolsTest$Attribute@397d693b(2)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>notLike [2, 1, 17]</activationId>
+  <rule>notLike</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@31c02c21(17); a2=com.sample.DroolsTest$Attribute@397d693b(2); a3=com.sample.DroolsTest$Attribute@437f0103(1)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ObjectLogEvent>
+  <type>2</type>
+  <factId>17</factId>
+  <objectToString>com.sample.DroolsTest$Attribute@31c02c21</objectToString>
+</org.drools.audit.event.ObjectLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>notLike [2, 1, 17]</activationId>
+  <rule>notLike</rule>
+  <declarations>a1=com.sample.DroolsTest$Attribute@31c02c21(17); a2=com.sample.DroolsTest$Attribute@397d693b(2); a3=com.sample.DroolsTest$Attribute@437f0103(1)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>6</type>
+  <activationId>No result [7]</activationId>
+  <rule>No result</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@46d4914b(7)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+<org.drools.audit.event.ActivationLogEvent>
+  <type>7</type>
+  <activationId>No result [7]</activationId>
+  <rule>No result</rule>
+  <declarations>a=com.sample.DroolsTest$Attribute@46d4914b(7)</declarations>
+</org.drools.audit.event.ActivationLogEvent>
+</object-stream>

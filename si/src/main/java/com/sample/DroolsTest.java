@@ -27,7 +27,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
  */
 public class DroolsTest {
 
-	private static String title = "Wybierz potrawę dla siebie";
+	private static String title = "Potrawa dla Ciebie";
 
 	public static final void main(String[] args) {
 		try {

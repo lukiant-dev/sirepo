@@ -62,12 +62,12 @@ salience 1
 end
 //6
 rule "Fast Food?"
-	when 
+ 	when 
 		a1: Attribute( my_id == "fastFood", parameters.isEmpty()) &&
 		(a2: Attribute( my_id == "diet", parameters.contains("mięso")) ||
 		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska") ))
 	then
-		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Czy preferujesz fast food?"));
+		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Może preferujesz fast food?"));
 		update(a1);
 end
 
@@ -87,8 +87,8 @@ rule "likeExtras"
 no-loop
 	when 
 		a1: Attribute( my_id == "likeExtras", parameters.isEmpty()) &&
-		a3: Attribute( my_id == "fastFood", parameters.contains("Nie")) &&
-		(a2: Attribute( my_id == "diet", parameters.contains("mięso")) ||
+		a2: Attribute( my_id == "fastFood", parameters.contains("Nie")) &&
+		(a3: Attribute( my_id == "diet", parameters.contains("mięso")) ||
 		a4: Attribute( my_id == "taste", parameters.contains("danie wytrawne")))
 	then
 		a1.getParams(Question.fewOptions(new String [] {"ryż", "makaron", "ziemniaki"}, "Które z poniższych produktów żywnościowych przypadają Ci do gustu?"));
@@ -98,6 +98,7 @@ end
 
 //9
 rule "Preferred meat"
+salience 1
 no-loop
 	when
 		a1: Attribute( my_id == "diet", parameters.contains("mięso")) &&
@@ -111,13 +112,14 @@ end
 rule "Mushroom"
 	when
 		a1: Attribute( my_id == "mushroom", parameters.isEmpty()) &&
-		((a2: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) && a7: Attribute( my_id == "likeExtras", parameters.contains("makaron"))) ||
-		a6: Attribute( my_id == "prefMeat", parameters.contains("wołowina")) || 		
-		(a3: Attribute( my_id == "fastFood", parameters.contains("Tak")) && 
-		 a4: Attribute( my_id == "cheese", parameters.contains("Tak")) && 
-		 a5: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska"))))
+		(((a2: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) && (a3: Attribute( my_id == "likeExtras", parameters.contains("makaron"))||
+		a4: Attribute( my_id == "flour", parameters.contains("Tak")))) || 
+		a5: Attribute( my_id == "prefMeat", (parameters.contains("wołowina") || parameters.contains("wieprzowina")))) || 		
+		(a6: Attribute( my_id == "fastFood", parameters.contains("Tak")) && 
+		 a7: Attribute( my_id == "cheese", parameters.contains("Tak")) && 
+		 a8: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska"))))
 	then
-		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Czy lubisz pieczarki?"));
+		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Czy lubisz grzyby?"));
 		update(a1);
 end
 
@@ -129,27 +131,31 @@ no-loop
 		(a2: Attribute( my_id == "diet", parameters.contains("ryby")) ||
 		a3: Attribute( my_id == "taste", parameters.contains("danie wytrawne")))
 	then 
-		a1.getParams(Question.fewOptions(new String [] {"pomidor", "sałata", "kukurydza", "kapusta pekińska", "włoszczyzna","ogórek"}, "Wybierz, które lubisz warzywa"));
+		a1.getParams(Question.fewOptions(new String [] {"pomidor", "sałata", "kukurydza", "kapusta pekińska", "włoszczyzna", "ogórek", "szpinak", "kapusta biała"}, "Wybierz, które warzywa lubisz"));
 		update(a1);
 		drools.getRule().setLockOnActive(true);
 end
+
 //12
-rule "Spinach"
+rule "VegetablesToMeat"
+no-loop
 	when
-		a1: Attribute( my_id == "isSpinach", parameters.isEmpty()) &&
-		a2: Attribute( my_id == "vegetables", !parameters.isEmpty()) &&
-		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska"))
-	then
-		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "A lubisz szpinak?"));
+		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
+		a2: Attribute( my_id == "diet", parameters.contains("mięso")) &&
+		a3: Attribute( my_id == "fastFood", parameters.contains("Nie"))
+	then 
+		a1.getParams(Question.fewOptions(new String [] {"kapusta biała", "brokuły", "włoszczyzna", "szpinak"}, "Za którymi warzywami przepadasz?"));
 		update(a1);
+		drools.getRule().setLockOnActive(true);
 end
+
 //13
 rule "Really spinach?"
 salience 1
 no-loop
 	when 
-		a1: Attribute( my_id == "isSpinach", parameters.contains("Tak")) 
-		
+		a1: Attribute( my_id == "isSpinach", parameters.isEmpty()) &&
+		a2: Attribute( my_id == "vegetables", parameters.contains("szpinak"))
 	then 
 		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Naprawdę lubisz szpinak? :P"));
 		update(a1);
@@ -216,18 +222,10 @@ rule "Potatoes"
 		a2.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Czy lubisz ziemniaki?"));
 		update(a2);
 end
-//20
-rule "Cabbage"
-	when
-		a1: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina"))  &&
-		a2: Attribute( my_id == "likeExtras", parameters.contains("ryż")) &&
-		a3: Attribute( my_id == "cabbage", parameters.isEmpty()) 
-	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Czy lubisz kapustę (białą / włoską)?"));
-		update(a3);
-end
+
 
 /* Dania rybne */
+//20
 rule "Sałatka z tuńczykiem"
 no-loop
 	when
@@ -237,7 +235,7 @@ no-loop
 					   	(parameters.contains("kapusta pekińska") || parameters.contains("sałata"))))  &&
 		a3: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Sałatka z tuńczykiem (tuńczyk + pomidor i/lub kukurydza + sałata i/lub kapusta pekińska). Czy akceptujesz ten wybór?"));
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Sałatka z tuńczykiem (tuńczyk + pomidor i/lub kukurydza + sałata lub kapusta pekińska). Czy akceptujesz ten wybór?"));
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
@@ -258,10 +256,10 @@ rule "Paluszki rybne"
 no-loop
 	when
 		a1: Attribute( my_id == "fish", (parameters.contains("morszczuk") || parameters.contains("dorsz"))) &&
-		a3: Attribute( my_id == "accept")
+		a2: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Paluszki rybne. Czy akceptujesz ten wybór?"));
-		update(a3);
+		a2.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Paluszki rybne. Czy akceptujesz ten wybór?"));
+		update(a2);
 		drools.getRule().setLockOnActive(true);
 end
 //23
@@ -276,7 +274,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end	
-
+//24
 rule "Ryba w panierce"
 no-loop
 	when
@@ -288,18 +286,18 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//24
+//25
 rule "Śledzie w śmietanie "
 no-loop
 	when
 		a1: Attribute( my_id == "fish", parameters.contains("śledzie")) &&
-		a3: Attribute( my_id == "accept")
+		a2: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Śledzie w śmietanie. Czy akceptujesz ten wybór?"));
-		update(a3);
+		a2.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Śledzie w śmietanie. Czy akceptujesz ten wybór?"));
+		update(a2);
 		drools.getRule().setLockOnActive(true);
 end
-
+//26
 rule "Sałatka śledziowa "
 no-loop
 	when
@@ -311,11 +309,9 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-
-
 /* Dania wegetariańskie */	
 /** Dania słodkie **/
-//25
+//27
 rule "Pierogi z truskawkami"
 no-loop
 	when
@@ -327,7 +323,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//26
+//28
 rule "Pierogi z jagodami"
 no-loop
 	when
@@ -339,7 +335,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//27
+//29
 rule "Placki z jabłkami"
 no-loop
 	when
@@ -351,18 +347,18 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-
+//30
 rule "Omlet z jagodami"
 no-loop
 	when
-		a2: Attribute( my_id == "fruit", parameters.contains("jagody")) &&
-		a3: Attribute( my_id == "accept")
+		a1: Attribute( my_id == "fruit", parameters.contains("jagody")) &&
+		a2: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Omlet z jagodami. Czy akceptujesz ten wybór?"));
-		update(a3);
+		a2.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Omlet z jagodami. Czy akceptujesz ten wybór?"));
+		update(a2);
 		drools.getRule().setLockOnActive(true);
 end
-//28
+//31
 rule "Naleśniki z dżemem truskawkowym"
 no-loop
 	when
@@ -374,47 +370,57 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end 
-
 /** Dania wytrawne **/
-//29
+//32
 rule "Pierogi z kapustą i grzybami"
 no-loop
 	when
 		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
-		a2: Attribute( my_id == "vegetables", parameters.contains("kapusta")) &&
+		a2: Attribute( my_id == "vegetables", parameters.contains("kapusta biała")) &&
 		a3: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
-		//a4: Attribute( my_id == "cuisine", parameters.contains("polska")) 
-		a5: Attribute( my_id == "accept")
+		a4: Attribute( my_id == "accept")
 	then
-		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi z kapustą i grzybami. Czy akceptujesz ten wybór?"));
-		update(a5);
+		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi z kapustą i grzybami. Czy akceptujesz ten wybór?"));
+		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
-//30
+//33
+rule "Krokiety z farszem grzybowym"
+no-loop
+	when
+		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
+		a2: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
+		a3: Attribute( my_id == "accept")
+	then
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Krokiety z farszem grzybowym. Czy akceptujesz ten wybór?"));
+		update(a3);
+		drools.getRule().setLockOnActive(true);
+end
+//34
 rule "Pierogi ze szpinakiem"
 no-loop
 	when
 		a1: Attribute( my_id == "flour", parameters.contains("Tak")) &&
-		a3: Attribute( my_id == "isSpinach", (parameters.contains("Tak") && !parameters.contains("Nie")) ) &&
-		a5: Attribute( my_id == "accept")
+		a2: Attribute( my_id == "isSpinach", parameters.contains("Tak")) &&
+		a3: Attribute( my_id == "accept")
 	then
-		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi ze szpinakiem. Czy akceptujesz ten wybór?"));
-		update(a5);
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Pierogi ze szpinakiem. Czy akceptujesz ten wybór?"));
+		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//31
+//35
 rule "Placki ziemniaczane"
 no-loop
 	when
 		a1: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) &&
-		a3: Attribute( my_id == "likeExtras", parameters.contains("ziemniaki")) &&
-		a5: Attribute( my_id == "accept")
+		a2: Attribute( my_id == "likeExtras", parameters.contains("ziemniaki")) &&
+		a3: Attribute( my_id == "accept")
 	then
-		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Placki ziemniaczane. Czy akceptujesz ten wybór?"));
-		update(a5);
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Placki ziemniaczane. Czy akceptujesz ten wybór?"));
+		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//32
+//36
 rule "Spaghetti Napoli"
 no-loop
 	when
@@ -427,7 +433,7 @@ no-loop
 		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
-//33
+//37
 rule "Sałatka ryżowa"
 no-loop
 	when
@@ -440,7 +446,7 @@ no-loop
 		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
-
+//38
 rule "Sałatka makaronowa"
 no-loop
 	when
@@ -453,7 +459,7 @@ no-loop
 		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
-//34
+//39
 rule "Sałatka warzywna"
 no-loop
 	when
@@ -467,18 +473,19 @@ no-loop
 		drools.getRule().setLockOnActive(true);
 end
 
+//40
 rule "Surówka z kapusty pekińskiej"
 no-loop
 	when
-		a2: Attribute( my_id == "vegetables", (parameters.contains("kapusta pekińska") && parameters.contains("pomidor") && parameters.contains("kukurydza"))) &&
-		a3: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) &&
-		a4: Attribute( my_id == "accept")
+		a1: Attribute( my_id == "vegetables", (parameters.contains("kapusta pekińska") && parameters.contains("pomidor") && parameters.contains("kukurydza"))) &&
+		a2: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) &&
+		a3: Attribute( my_id == "accept")
 	then
-		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Surówka z kapustą pekińską, pomidorem i kukurydzą.Czy akceptujesz ten wybór?"));
-		update(a4);
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Surówka z kapustą pekińską, pomidorem i kukurydzą.Czy akceptujesz ten wybór?"));
+		update(a3);
 		drools.getRule().setLockOnActive(true);\		
 end
-//35
+//41
 rule "Makaron ze szpinakiem"
 no-loop
 	when
@@ -491,8 +498,8 @@ no-loop
 		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
-
-rule "Makaron w sosie pieczarkowym"
+//42
+rule "Makaron w sosie grzybowym"
 no-loop
 	when
 		a1: Attribute( my_id == "likeExtras", parameters.contains("makaron")) &&
@@ -500,11 +507,38 @@ no-loop
 		a3: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) &&
 		a4: Attribute( my_id == "accept")
 	then
-		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Makaron w sosie pieczarkowym. Czy akceptujesz ten wybór?"));
+		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Makaron w sosie grzybowym. Czy akceptujesz ten wybór?"));
 		drools.getRule().setLockOnActive(true);
+		update(a4);
 end
 
 /* Danie mięsne */
+//43
+rule "Bigos"
+no-loop
+	when
+		a1: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina")) &&
+		a2: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
+		a3: Attribute( my_id == "vegetables", parameters.contains("kapusta biała")) &&
+		a4: Attribute( my_id == "accept")
+	then
+		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Bigos. Czy akceptujesz ten wybór?"));
+		update(a4);
+		drools.getRule().setLockOnActive(true);
+end
+//44
+rule "Kurczak ze szpinakiem"
+no-loop
+	when
+		a1: Attribute( my_id == "prefMeat", parameters.contains("mięso drobiowe")) &&
+		a2: Attribute( my_id == "isSpinach",parameters.contains("Tak")) &&
+		a3: Attribute( my_id == "accept")
+	then
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Kurczak ze szpinakiem. Czy akceptujesz ten wybór?"));
+		update(a3);
+		drools.getRule().setLockOnActive(true);
+end
+//45
 rule "Filet z kurczaka z ziemniakami"
 no-loop
 	when
@@ -516,7 +550,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//36
+//46
 rule "Kotlet schabowy z ziemniakami"
 no-loop
 	when
@@ -528,7 +562,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//37
+//47
 rule "Spaghetti Bolognese"
 no-loop
 	when
@@ -540,7 +574,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//38
+//48
 rule "Risotto z kurczakiem"
 no-loop
 	when
@@ -552,7 +586,21 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-//39
+//49
+rule "Zapiekanka makaronowa z kurczakiem"
+no-loop
+	when
+		a1: Attribute( my_id == "likeExtras", parameters.contains("makaron")) &&
+		a2: Attribute( my_id == "prefMeat", (parameters.contains("mięso drobiowe") || parameters.contains("wieprzowina")  || parameters.contains("wołowina"))) &&
+		a3: Attribute( my_id == "vegetables", parameters.contains("brokuły")) 
+		a4: Attribute( my_id == "accept")
+	then
+		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Zapiekanka makaronowa z mięsem mielonym i brokułami. Czy akceptujesz ten wybór?"));
+		update(a4);
+		drools.getRule().setLockOnActive(true);
+end
+
+//50
 rule "Gulasz wołowy"
 no-loop
 	when
@@ -565,17 +613,32 @@ no-loop
 		drools.getRule().setLockOnActive(true);
 end
 
+//51
 rule "Stek wołowy"
 no-loop
 	when
 		a1: Attribute( my_id == "prefMeat", parameters.contains("wołowina")) &&
+		a2: Attribute( my_id == "accept")
+	then
+		a2.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Stek wołowy. Czy akceptujesz ten wybór?"));
+		update(a2);
+		drools.getRule().setLockOnActive(true);
+end
+
+//52
+rule "Duszona baranina z warzywami"
+no-loop
+	when
+		a1: Attribute( my_id == "prefMeat", parameters.contains("baranina")) &&
+		a2: Attribute( my_id == "vegetables", parameters.contains("włoszczyzna")) &&
 		a3: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Stek wołowy. Czy akceptujesz ten wybór?"));
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Duszona baranina z warzywami. Czy akceptujesz ten wybór?"));
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
 
+//53
 rule "Pieczona baranina"
 no-loop
 	when
@@ -588,33 +651,34 @@ no-loop
 		drools.getRule().setLockOnActive(true);
 end
 
-//40
+//54
 rule "Gołąbki"
 no-loop
 	when
-		a1: Attribute( my_id == "cabbage", parameters.contains("Tak")) &&
-		a3: Attribute( my_id == "accept")
+		a1: Attribute( my_id == "vegetables", parameters.contains("kapusta biała")) &&
+		a2: Attribute( my_id == "prefMeat", parameters.contains("wieprzowina")) &&
+		a3: Attribute( my_id == "likeExtras", parameters.contains("ryż")) &&
+		a4: Attribute( my_id == "accept")
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Gołąbki. Czy akceptujesz ten wybór?"));
-		update(a3);
+		a4.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Gołąbki. Czy akceptujesz ten wybór?"));
+		update(a4);
 		drools.getRule().setLockOnActive(true);
 end
 
 /* Fast Food */
+//55
 rule "Zapiekanka z pieczarkami"
 no-loop
 	when
 		a1: Attribute( my_id == "fastFood", parameters.contains("Tak")) &&
-		a2: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska")) &&
-		a3: Attribute( my_id == "cheese", parameters.contains("Tak")) &&
-		a4: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
-		a5: Attribute( my_id == "accept")		
+		a2: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
+		a3: Attribute( my_id == "accept")		
 	then
-		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Zapiekanka z pieczarkami. Czy akceptujesz ten wybór?"));
-		update(a5);
+		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Zapiekanka z pieczarkami. Czy akceptujesz ten wybór?"));
+		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-
+//56
 rule "Frytki"
 no-loop
 	when
@@ -626,7 +690,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);		
 end
-
+//57
 rule "Hot dog"
 no-loop
 	when 
@@ -638,7 +702,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-		
+//58		
 rule "Hamburger"
 no-loop
 	when
@@ -650,7 +714,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-
+//59
 rule "Cheeseburger"
 no-loop
 	when
@@ -663,7 +727,7 @@ no-loop
 		update(a3);
 		drools.getRule().setLockOnActive(true);
 end
-
+//60
 rule "Kebab1"
 no-loop
 	when 
@@ -674,7 +738,7 @@ no-loop
 		update(a2);
 		drools.getRule().setLockOnActive(true);
 end 	 
-
+//61
 rule "Kebab2"
 no-loop
 	when 
@@ -685,7 +749,7 @@ no-loop
 		update(a2);
 		drools.getRule().setLockOnActive(true);
 end 	 	
-
+//62
 rule "Nuggetsy"
 no-loop
 	when

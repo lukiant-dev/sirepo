@@ -304,7 +304,7 @@ rule "Sałatka śledziowa "
 no-loop
 	when
 		a1: Attribute( my_id == "fish", parameters.contains("śledzie")) &&
-		a2: Attribute( my_id == "vegetable", (parameters.contains("włoszczyzna") || parameters.contains("ogórek"))) &&
+		a2: Attribute( my_id == "vegetables", (parameters.contains("włoszczyzna") || parameters.contains("ogórek"))) &&
 		a3: Attribute( my_id == "accept")
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Sałatka śledziowa. Czy akceptujesz ten wybór?"));

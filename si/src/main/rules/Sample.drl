@@ -36,7 +36,6 @@ salience 1
 		insert( new Attribute("diet") );
 		insert( new Attribute("meat") );
 		insert( new Attribute("taste") );
-		insert( new Attribute("pasta") );
 		insert( new Attribute("accept") );
 		insert( new Attribute("prefMeat") );
 		insert( new Attribute("mushroom") );
@@ -49,8 +48,7 @@ salience 1
 		insert( new Attribute("fish") );
 		insert( new Attribute("likeExtras") );
 		insert( new Attribute("potatoes") );
-		insert( new Attribute("cabbage") );
-end
+	end
 //5
 rule "Choose diet"
 salience 1
@@ -128,16 +126,26 @@ rule "Vegetables"
 no-loop
 	when
 		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
-		(a2: Attribute( my_id == "diet", parameters.contains("ryby")) ||
-		a3: Attribute( my_id == "taste", parameters.contains("danie wytrawne")))
+		a2: Attribute( my_id == "taste", parameters.contains("danie wytrawne"))
 	then 
 		a1.getParams(Question.fewOptions(new String [] {"pomidor", "sałata", "kukurydza", "kapusta pekińska", "włoszczyzna", "ogórek", "szpinak", "kapusta biała"}, "Wybierz, które warzywa lubisz"));
 		update(a1);
 		drools.getRule().setLockOnActive(true);
 end
 
+rule "VegetablesForFish"
+no-loop
+	when
+		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
+		a2: Attribute( my_id == "diet", parameters.contains("ryby"))
+	then 
+		a1.getParams(Question.fewOptions(new String [] {"pomidor", "sałata", "kukurydza", "kapusta pekińska", "włoszczyzna", "ogórek kiszony", "cebula"}, "Wybierz, które warzywa lubisz"));
+		update(a1);
+		drools.getRule().setLockOnActive(true);
+end
+
 //12
-rule "VegetablesToMeat"
+rule "VegetablesForMeat"
 no-loop
 	when
 		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
@@ -302,7 +310,7 @@ rule "Sałatka śledziowa "
 no-loop
 	when
 		a1: Attribute( my_id == "fish", parameters.contains("śledzie")) &&
-		a2: Attribute( my_id == "vegetables", (parameters.contains("włoszczyzna") || parameters.contains("ogórek"))) &&
+		a2: Attribute( my_id == "vegetables", (parameters.contains("cebula") || parameters.contains("ogórek kiszony") || parameters.contains("włoszczyzna"))) &&
 		a3: Attribute( my_id == "accept")
 	then
 		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Sałatka śledziowa. Czy akceptujesz ten wybór?"));

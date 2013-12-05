@@ -133,6 +133,7 @@ no-loop
 		drools.getRule().setLockOnActive(true);
 end
 
+//63
 rule "VegetablesForFish"
 no-loop
 	when

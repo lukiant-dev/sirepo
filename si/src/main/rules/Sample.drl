@@ -112,7 +112,7 @@ rule "Mushroom"
 		a1: Attribute( my_id == "mushroom", parameters.isEmpty()) &&
 		(((a2: Attribute( my_id == "taste", parameters.contains("danie wytrawne")) && (a3: Attribute( my_id == "likeExtras", parameters.contains("makaron"))||
 		a4: Attribute( my_id == "flour", parameters.contains("Tak")))) || 
-		a5: Attribute( my_id == "prefMeat", (parameters.contains("wołowina") || parameters.contains("wieprzowina")))) || 		
+		(a5: Attribute( my_id == "prefMeat", (parameters.contains("wołowina") || parameters.contains("wieprzowina"))) && Attribute( my_id == "fastFood", parameters.contains("Nie")))) || 		
 		(a6: Attribute( my_id == "fastFood", parameters.contains("Tak")) && 
 		 a7: Attribute( my_id == "cheese", parameters.contains("Tak")) && 
 		 a8: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska"))))

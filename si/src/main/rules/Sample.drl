@@ -63,7 +63,9 @@ rule "Fast Food?"
  	when 
 		a1: Attribute( my_id == "fastFood", parameters.isEmpty()) &&
 		(a2: Attribute( my_id == "diet", parameters.contains("mięso")) ||
-		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska") ))
+		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska") )) &&
+		a4: Attribute( my_id == "prefMeat", !parameters.isEmpty())
+		
 	then
 		a1.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Może preferujesz fast food?"));
 		update(a1);
@@ -139,6 +141,7 @@ no-loop
 	when
 		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
 		a2: Attribute( my_id == "diet", parameters.contains("ryby"))
+		a3: Attribute( my_id == "fish", !parameters.isEmpty())
 	then 
 		a1.getParams(Question.fewOptions(new String [] {"pomidor", "sałata", "kukurydza", "kapusta pekińska", "włoszczyzna", "ogórek kiszony", "cebula"}, "Wybierz, które warzywa lubisz"));
 		update(a1);
@@ -151,7 +154,8 @@ no-loop
 	when
 		a1: Attribute( my_id == "vegetables", parameters.isEmpty()) &&
 		a2: Attribute( my_id == "diet", parameters.contains("mięso")) &&
-		a3: Attribute( my_id == "fastFood", parameters.contains("Nie"))
+		a3: Attribute( my_id == "fastFood", parameters.contains("Nie")) &&
+		a4: Attribute( my_id == "prefMeat", !parameters.isEmpty())
 	then 
 		a1.getParams(Question.fewOptions(new String [] {"kapusta biała", "brokuły", "włoszczyzna", "szpinak"}, "Za którymi warzywami przepadasz?"));
 		update(a1);
@@ -681,10 +685,12 @@ no-loop
 	when
 		a1: Attribute( my_id == "fastFood", parameters.contains("Tak")) &&
 		a2: Attribute( my_id == "mushroom", parameters.contains("Tak")) &&
-		a3: Attribute( my_id == "accept")		
+		a3: Attribute( my_id == "diet", parameters.contains("potrawa wegetariańska")) &&
+		a4: Attribute( my_id == "cheese", parameters.contains("Tak")) &&
+		a5: Attribute( my_id == "accept")		
 	then
-		a3.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Zapiekanka z pieczarkami. Czy akceptujesz ten wybór?"));
-		update(a3);
+		a5.getParams(Question.oneFromFewOption(new String [] {"Tak", "Nie"}, "Potrawa dla Ciebie to: Zapiekanka z pieczarkami. Czy akceptujesz ten wybór?"));
+		update(a5);
 		drools.getRule().setLockOnActive(true);
 end
 //56
